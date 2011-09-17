@@ -5,7 +5,7 @@ var fileProvider = require('./lib/fileProvider');
 
 var fp = new fileProvider(process.cwd() + "/http/");
 
-http.createServer(function (req, res) {
+function basicServer(req, res) {
 	var file = url.parse(req.url).pathname;
 	var time = new Date(Date.now());
 
@@ -26,6 +26,8 @@ http.createServer(function (req, res) {
 			res.end();
 		}
 	});
-}).listen(8000);
+}
+
+http.createServer(basicServer).listen(8000);
 
 console.log('Server running');
