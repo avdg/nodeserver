@@ -1,26 +1,7 @@
-var fs = require('fs');
 var http = require('http');
 var path = require('path');
 var url = require('url');
-
-function fileProvider(dir) {
-	this.path = path.normalize(dir) + "/";
-}
-
-fileProvider.prototype.exists = function(file, callback)
-{
-	return path.exists(this.fullPath(file), callback);
-}
-
-fileProvider.prototype.read = function(file, callback)
-{
-	return fs.readFile(this.fullPath(file), "binary", callback);
-}
-
-fileProvider.prototype.fullPath = function(file)
-{
-	return path.join(this.path, path.normalize(file));
-}
+var fileProvider = require('./lib/fileProvider');
 
 var fp = new fileProvider(process.cwd() + "/http/");
 
