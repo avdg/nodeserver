@@ -1,7 +1,9 @@
 var http = require('http');
 var path = require('path');
 var url = require('url');
+
 var fileProvider = require('./lib/fileProvider');
+var config = require('./config.js').config;
 
 var fp = new fileProvider(process.cwd() + "/http/");
 
@@ -28,6 +30,6 @@ function basicServer(req, res) {
 	});
 }
 
-http.createServer(basicServer).listen(8000);
+http.createServer(basicServer).listen(config.port);
 
 console.log('Server running');
