@@ -1,17 +1,18 @@
 var http = require('http');
-var path = require('path');
 var url = require('url');
 
 var fileProvider = require('./lib/fileProvider');
+var Log = require('./lib/log.js');
+
 var config = require('./config.js').config;
 
 var fp = new fileProvider(process.cwd() + "/http/");
+var log = new Log();
 
 function basicServer(req, res) {
 	var file = url.parse(req.url).pathname;
-	var time = new Date(Date.now());
 
-	console.log(time.toString() + ": " + req.connection.remoteAddress + " -> " + req.url);
+	log.write(req.connection.remoteAddress + " -> " + req.url);
 
 	fp.exists(file, function(exists){
 		if (exists) {
