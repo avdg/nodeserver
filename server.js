@@ -10,9 +10,8 @@ var fp = new fileProvider(config.httpServe);
 var log = new Log();
 
 function basicServer(req, res) {
+	var time = new Date(Date.now());
 	var file = url.parse(req.url).pathname;
-
-	log.write(req.connection.remoteAddress + " -> " + req.url);
 
 	fp.exists(file, function(exists){
 		if (exists) {
@@ -24,9 +23,12 @@ function basicServer(req, res) {
 			res.writeHead(404);
 			res.end();
 		}
+
+		timeLapse = new Date(Date.now()) - time;
+		log.write(timeLapse + " ms, " + res.statusCode + " " + req.connection.remoteAddress + " -> " + req.url);
 	});
 }
 
 http.createServer(basicServer).listen(config.port);
 
-console.log('Server running');
+log.write('Server running');
