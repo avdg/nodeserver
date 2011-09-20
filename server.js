@@ -24,7 +24,7 @@ function basicServer(req, res) {
 			res.end();
 		}
 
-		timeLapse = new Date(Date.now()) - time;
+		var timeLapse = new Date(Date.now()) - time;
 		log.write(timeLapse + " ms, " + res.statusCode + " " + req.connection.remoteAddress + " -> " + req.url);
 	});
 }
