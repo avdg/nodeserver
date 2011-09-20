@@ -1,3 +1,5 @@
+var start = new Date(Date.now());
+
 var http = require('http');
 var url = require('url');
 
@@ -31,4 +33,4 @@ function basicServer(req, res) {
 
 http.createServer(basicServer).listen(config.port);
 
-log.write('Server running');
+log.write('Server running (boot time: ' + (new Date(Date.now()) - start) + ' ms)');
