@@ -6,7 +6,7 @@ var Log = require('./lib/log.js');
 
 var config = require('./config.js').config;
 
-var fp = new fileProvider(process.cwd() + "/http/");
+var fp = new fileProvider(config.httpServe);
 var log = new Log();
 
 function basicServer(req, res) {
