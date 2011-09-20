@@ -13,10 +13,6 @@ function basicServer(req, res) {
 
 	console.log(time.toString() + ": " + req.connection.remoteAddress + " -> " + req.url);
 
-	if (path.normalize(file) == "/") {
-		file = "index.html";
-	}
-
 	fp.exists(file, function(exists){
 		if (exists) {
 			fp.read(file, function(error, content){
