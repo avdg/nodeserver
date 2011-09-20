@@ -1,4 +1,4 @@
-var start = new Date(Date.now());
+var start = new Date();
 
 var http = require('http');
 var url = require('url');
@@ -12,7 +12,7 @@ var fp = new fileProvider(config.httpServe);
 var log = new Log();
 
 function basicServer(req, res) {
-	var time = new Date(Date.now());
+	var time = new Date();
 	var file = url.parse(req.url).pathname;
 
 	fp.exists(file, function(exists){
@@ -26,11 +26,11 @@ function basicServer(req, res) {
 			res.end();
 		}
 
-		var timeLapse = new Date(Date.now()) - time;
+		var timeLapse = new Date() - time;
 		log.write(timeLapse + " ms, " + res.statusCode + " " + req.connection.remoteAddress + " -> " + req.url);
 	});
 }
 
 http.createServer(basicServer).listen(config.port);
 
-log.write('Server running (boot time: ' + (new Date(Date.now()) - start) + ' ms)');
+log.write('Server running (boot time: ' + (new Date() - start) + ' ms)');
