@@ -28,7 +28,7 @@ function requestHandler(req, res) {
 	try {
 		match = false;
 		for (var i = 0; i < routers.length; i++) {
-			if (routers[i].match(request)) {
+			if (routers[i].match(req)) {
 				routers[i].serve(request);
 				match = true;
 				break;
