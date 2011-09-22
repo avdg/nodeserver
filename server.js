@@ -28,6 +28,11 @@ function errorHandler(error, request) {
 	request.responce.end();
 }
 
+var errorHandler = {
+	noRoute: noRouteHandler,
+	routeError: errorHandler,
+}
+
 function requestHandler(req, res) {
 	var time = new Date();
 	var request = {
@@ -35,11 +40,6 @@ function requestHandler(req, res) {
 		"responce": res,
 		"requestTime": time,
 	}
-
-var errorHandler = {
-	noRoute: noRouteHandler,
-	routeError: requestHandler,
-}
 
 	req.on('end', function () {
 		var timeLapse = new Date() - time;
