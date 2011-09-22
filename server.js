@@ -12,6 +12,22 @@ var fp = new fileProvider(config.httpServe);
 var log = new Log();
 var routers = [fp];
 
+function noRouteHandler(request) {
+	request.responce.writeHead(404);
+	request.responce.end();
+}
+
+function errorHandler(error, request) {
+	if (error instanceof Error) {
+		console.log(error.stack);
+	} else {
+		console.log("Error: " + error.toString());
+	}
+
+	request.responce.writeHead(500);
+	request.responce.end();
+}
+
 function requestHandler(req, res) {
 	var time = new Date();
 	var request = {
@@ -19,6 +35,11 @@ function requestHandler(req, res) {
 		"responce": res,
 		"requestTime": time,
 	}
+
+var errorHandler = {
+	noRoute: noRouteHandler,
+	routeError: requestHandler,
+}
 
 	req.on('end', function () {
 		var timeLapse = new Date() - time;
@@ -36,19 +57,10 @@ function requestHandler(req, res) {
 		}
 
 		if (!match) {
-			// Do nothing for now
-			res.writeHead(404);
-			res.end();
+			errorHandler.noRoute(request);
 		}
 	} catch (error) {
-		if (error instanceof Error) {
-			console.log(error.stack);
-		} else {
-			console.log(error.toString());
-		}
-
-		res.writeHead(500);
-		res.end();
+		errorHandler.routeError(error, request);
 	}
 }
 
