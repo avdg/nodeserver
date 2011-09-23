@@ -1,7 +1,5 @@
 var start = new Date();
-
 var Server = require("./lib/server");
-
 var config = require('./config.js').config;
 
 server = new Server({
