@@ -1,6 +1,12 @@
 var start = new Date();
 var Server = require("./lib/server");
-var config = require('./config.js').config;
+
+try {
+	var config = require('./config.js').config;
+} catch (e) {
+	console.log("Failed to load config.js, loading config.default.js");
+	config = require('./config.default.js').config;
+}
 
 server = new Server({
 	port: config.port,
